@@ -2,9 +2,9 @@ from PIL import Image
 import numpy as np
 import cv2 as cv
 
-def show_image(url ,img):
+def save_image(url ,img):
 	im = Image.fromarray(img)
-	im.show()
+	# im.show()
 	im.save(url)
 
 def create_yiq_matrixes(row, col):

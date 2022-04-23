@@ -39,9 +39,9 @@ def convert_to_rgb(y_matrix, i_matrix, q_matrix, func):
       g_matrix[x, j] = int(min(max((1.000 * y) - (0.272 * i) - (0.647 * q),0),255))
       b_matrix[x, j] = int(min(max((1.000 * y) - (1.106 * i) + (1.703 * q),0),255))
 
-  rgb_img = cv.merge([r_matrix, g_matrix, b_matrix])
+  rgb_img = cv.merge([ r_matrix, g_matrix, b_matrix ])
   name_path = '{}{}.jpg'.format(save_path_folder,func)
-  ut.show_image(name_path ,rgb_img)
+  ut.save_image(name_path ,rgb_img)
 
 def rgb_yiq_rgb(path, func):
   y_matrix, i_matrix, q_matrix = convert_to_yiq(path)
@@ -62,7 +62,7 @@ def negative(path, func):
 
   negativeImage = cv.merge([r_matrix, g_matrix, b_matrix])
   name_path = '{}{}.jpg'.format(save_path_folder,func)
-  ut.show_image(name_path,negativeImage)
+  ut.save_image(name_path,negativeImage)
 
 def negative_in_y(y_matrix, i_matrix, q_matrix, func):
   row = y_matrix.shape[0]
