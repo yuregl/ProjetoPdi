@@ -1,10 +1,12 @@
 import conversion
 import filters
+import avancedFunctions as af
 import utils as ut
 
 if __name__ == "__main__":
   file = "./assets/Woman.png"
   file_txt  = './assets/input3.txt' 
+  file_woman_eye = './assets/Woman_eye.png'
   while(True): 
     selectInput = input(
         "\t+---+-------------------------------------------------------+\n"
@@ -14,6 +16,7 @@ if __name__ == "__main__":
         +"\t| 2 | Negativo                                              |\n"
         +"\t| 3 | Correlação                                            |\n"
         +"\t| 4 | Mediana na banda Y                                    |\n"
+        +"\t| 5 | Correlação avançada                                   |\n"
         +"\t| 0 | Sair                                                  |\n"
         +"\t+---+-------------------------------------------------------+\n")
 
@@ -39,5 +42,11 @@ if __name__ == "__main__":
       
       y_matrix, i_matrix, q_matrix = conversion.convert_to_yiq(file)
       filters.median_in_y(y_matrix, i_matrix, q_matrix, row, column ,'MEDIANA_EM_Y')
+    
+    if(selectInput == '5'):
+      path_fist_correlation = af.avanced_correlation(file, file_woman_eye, 'FIRSTCORRELATION')
+      print(path_fist_correlation)
+      af.avanced_correlation(path_fist_correlation, file_woman_eye, 'SECONDCORRELATION')
+
     if(selectInput == '0'):
       break
