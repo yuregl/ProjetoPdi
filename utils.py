@@ -14,9 +14,9 @@ def create_yiq_matrixes(row, col):
 	return y_matrix, i_matrix, q_matrix
 
 def create_rgb_matrixes(row, col):
-	r_matrix = np.zeros((row, col))
-	g_matrix = np.zeros((row, col))
-	b_matrix = np.zeros((row, col))
+	r_matrix = np.zeros((row, col), dtype=np.uint8)
+	g_matrix = np.zeros((row, col), dtype=np.uint8)
+	b_matrix = np.zeros((row, col), dtype=np.uint8)
 
 	return r_matrix, g_matrix, b_matrix
 
@@ -48,7 +48,6 @@ def read_file(path):
 
 	mask_sobel_horizontal = []
 	mask_sobel_vertical = []
-	mask_media = []
 
 	for row_mask in range(4, row+4):
 		aux_arr = []
@@ -70,22 +69,4 @@ def read_file(path):
 
 	return offset, row, col, mask_sobel_horizontal, mask_sobel_vertical, pivo_row, pivo_col
 
-def cria_matrizes_extendidas_pivo(r_matriz, g_matriz, b_matriz, inc_lin, inc_col, lin_pivo, col_pivo):
-
-	lin_img, col_img = r_matriz.shape()
-
-	#criando matrizes de dimensão (lin_img + 2*inc_lin)x(col_img + 2*inc_col)
-	#e populando com zeros.
-	r_matriz_ext = np.zeros((lin_img + inc_lin, col_img + inc_col))
-	g_matriz_ext = np.zeros((lin_img + inc_lin, col_img + inc_col))
-	b_matriz_ext = np.zeros((lin_img + inc_lin, col_img + inc_col))
-
-	#copiando as matrizes para as matrizes extendidas.
-	for i in range(lin_img):
-		for j in range(col_img):
-			r_matriz_ext[lin_pivo + i, col_pivo + j] = r_matriz[i,j]
-			g_matriz_ext[lin_pivo + i, col_pivo + j] = g_matriz[i,j]
-			b_matriz_ext[lin_pivo + i, col_pivo + j] = b_matriz[i,j]
-	
-	return r_matriz_ext, g_matriz_ext, b_matriz_ext
 
