@@ -29,8 +29,13 @@ if __name__ == "__main__":
       conversion.negative_in_y(y_matrix, i_matrix, q_matrix,'NEGATIVO_IN_Y')
 
     if(selectInput == '3'):
-      values = ut.read_file(file_txt)
-      print(values)
+      
+      offset, row, col, mask_sobel_horizontal, mask_sobel_vertical, mask_media, pivot_row, pivot_col = ut.read_file(file_txt)
+
+      #values = ut.read_file(file_txt)
+      #print(values)
+
+      filters.media(file, mask_media, pivot_row, pivot_col, row, col)
 
     if(selectInput == '4'):
       row = int(input("Tamanaho das linhas: "))

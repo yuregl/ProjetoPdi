@@ -1,6 +1,8 @@
 import utils as ut
 import numpy as np
 import conversion
+import cv2 as cv
+
 
 def median_in_y(y_matrix, i_matrix, q_matrix, row_mask, col_mask, func):
   row_image = y_matrix.shape[0]
@@ -22,6 +24,15 @@ def median_in_y(y_matrix, i_matrix, q_matrix, row_mask, col_mask, func):
       y_median_matrix[i, j] = y_aux[index]
 
   conversion.convert_to_rgb(y_median_matrix, i_matrix, q_matrix, func)
+
+def media(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask):
+
+  func = "./assets/images/media.jpg"
+  picture_media = conversion.correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask, func)
+  
+  
+
+
 
 # def median_in_y(y_matrix, i_matrix, q_matrix, row_mask, col_mask, func):
 #   row_image = y_matrix.shape[0]
