@@ -67,6 +67,31 @@ def valor_absoluto(r_matrix, g_matrix, b_matrix):
 	
 	return r_matrix_abs, g_matrix_abs, b_matrix_abs
 
+def expansao_de_histograma(r_matrix, g_matrix, b_matrix):
+
+	l = 255
+
+	row = r_matrix.shape[0]
+	col = r_matrix.shape[1]
+
+	r_min = np.min(r_matrix)
+	r_max = np.max(r_matrix)
+	g_min = np.min(g_matrix)
+	g_max = np.max(g_matrix)
+	b_min = np.min(b_matrix)
+	b_max = np.max(b_matrix)
+
+	r_matrix_exp_his,g_matrix_exp_his, b_matrix_exp_his = create_rgb_matrixes(row, col)
+
+	for i in range(row):
+		for j in range(col):
+			r_matrix_exp_his[i, j] = ((r_matrix[i, j] - r_min) * l ) // (r_max - r_min)
+			g_matrix_exp_his[i, j] = ((g_matrix[i, j] - g_min) * l ) // (g_max - g_min)
+			b_matrix_exp_his[i, j] = ((b_matrix[i, j] - b_min) * l ) // (b_max - b_min)
+
+	return r_matrix_exp_his,g_matrix_exp_his, b_matrix_exp_his
+
+
 def read_file(path):
 	all_file = open(path, "r")
 	read_lines = all_file.readlines()

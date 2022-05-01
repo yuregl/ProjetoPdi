@@ -35,13 +35,28 @@ def media(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask):
   ut.save_image(func, correlacao_picture)
 
 def sobel(path_picture, mask_sobel_horizontal, mask_sobel_vertical, row_pivot, col_pivot, row_mask, col_mask ):
-
+  print("Iniciando etapa da correlacao")
+  
   r_matrix_sh, g_matrix_sh, b_matrix_sh = conversion.correlacao(path_picture, mask_sobel_horizontal, row_pivot, col_pivot, row_mask, col_mask)
   r_matrix_sv, g_matrix_sv, b_matrix_sv = conversion.correlacao(path_picture, mask_sobel_vertical, row_pivot, col_pivot, row_mask, col_mask)
+  
+  print("etapa da correlacao terminada, inciando etapa do valor absoluto")
   
   r_matrix_sh_abs, g_matrix_sh_abs, b_matrix_sh_abs = ut.valor_absoluto(r_matrix_sh, g_matrix_sh, b_matrix_sh)
   r_matrix_sv_abs, g_matrix_sv_abs, b_matrix_sv_abs = ut.valor_absoluto(r_matrix_sv, g_matrix_sv, b_matrix_sv)
 
+  print("etapa do valor absoluto terminada, iniciando etapa da expansao de histograma")
+
+  r_matrix_sh_exph, g_matrix_sh_exph, b_matrix_sh_exph = ut.expansao_de_histograma(r_matrix_sh, g_matrix_sh, b_matrix_sh)
+  r_matrix_sv_exph, g_matrix_sv_exph, b_matrix_sv_exph = ut.expansao_de_histograma(r_matrix_sv, g_matrix_sv, b_matrix_sv)
+
+  print("etapa de expansao de histograma terminada, iniciando etapa da mesclagem dos canais para formacao da imagem")
+
+  sobel_horizontal_picture = cv.merge((r_matrix_sh_exph, g_matrix_sh_exph, b_matrix_sh_exph))
+  sobel_vertical_picture = cv.merge((r_matrix_sv_exph, g_matrix_sv_exph, b_matrix_sv_exph))
+
+  ut.save_image("./assets/images/sobel_horizontal.jpg", sobel_horizontal_picture)
+  ut.save_image("./assets/images/sobel_vertical.jpg", sobel_vertical_picture)
 
 
 # def median_in_y(y_matrix, i_matrix, q_matrix, row_mask, col_mask, func):
