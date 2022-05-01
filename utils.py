@@ -53,6 +53,20 @@ def craete_extended_matrix_rgb_pivot(r_matrix, g_matrix, b_matrix, inc_row, inc_
 	
 	return r_matrix_ext, g_matrix_ext, b_matrix_ext
 
+def valor_absoluto(r_matrix, g_matrix, b_matrix):
+	row = r_matrix.shape[0]
+	col = r_matrix.shape[1]
+
+	r_matrix_abs, g_matrix_abs, b_matrix_abs = create_rgb_matrixes(row, col)
+
+	for i in range(row):
+		for j in range(col):
+			r_matrix_abs[i, j] = abs(r_matrix[i, j])
+			g_matrix_abs[i, j] = abs(g_matrix[i, j])
+			b_matrix_abs[i, j] = abs(b_matrix[i, j])
+	
+	return r_matrix_abs, g_matrix_abs, b_matrix_abs
+
 def read_file(path):
 	all_file = open(path, "r")
 	read_lines = all_file.readlines()

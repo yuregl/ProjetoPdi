@@ -76,7 +76,7 @@ def negative_in_y(y_matrix, i_matrix, q_matrix, func):
   
   convert_to_rgb(y_matrix_negative, i_matrix, q_matrix, func)
 
-def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask, func):
+def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask):
   
   # essa função consiste na implementação da correlação 
   # não normalizada entre uma mascara (masc_matriz) MxN e
@@ -92,7 +92,7 @@ def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_ma
 
   counter = (row_mask * col_mask)
 
-  print("counter: ", counter)
+  #print("counter: ", counter)
 
   r_matrix_ext, g_matrix_ext, b_matrix_ext = ut.craete_extended_matrix_rgb_pivot(r_matrix, g_matrix, b_matrix, inc_row, inc_col, row_pivot, col_pivot)
   r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao = ut.create_rgb_matrixes(row_picture, col_picture)
@@ -125,10 +125,8 @@ def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_ma
       g_matrix_correlacao[i][j] = int(g_correlacao_aux)
       b_matrix_correlacao[i][j] = int(b_correlacao_aux) 
 
-  print("r_matrix_correlacao: ")
-  print(r_matrix_correlacao)
-  correlacao_picture = cv.merge((r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao))
+  #print("r_matrix_correlacao: ")
+  #print(r_matrix_correlacao)
+
   
-  ut.save_image(func, correlacao_picture)
-  
-  return correlacao_picture 
+  return r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao

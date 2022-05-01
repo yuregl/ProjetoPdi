@@ -28,9 +28,19 @@ def median_in_y(y_matrix, i_matrix, q_matrix, row_mask, col_mask, func):
 def media(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask):
 
   func = "./assets/images/media.jpg"
-  picture_media = conversion.correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask, func)
+  r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao = conversion.correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask)
   
+  correlacao_picture = cv.merge((r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao))
   
+  ut.save_image(func, correlacao_picture)
+
+def sobel(path_picture, mask_sobel_horizontal, mask_sobel_vertical, row_pivot, col_pivot, row_mask, col_mask ):
+
+  r_matrix_sh, g_matrix_sh, b_matrix_sh = conversion.correlacao(path_picture, mask_sobel_horizontal, row_pivot, col_pivot, row_mask, col_mask)
+  r_matrix_sv, g_matrix_sv, b_matrix_sv = conversion.correlacao(path_picture, mask_sobel_vertical, row_pivot, col_pivot, row_mask, col_mask)
+  
+  r_matrix_sh_abs, g_matrix_sh_abs, b_matrix_sh_abs = ut.valor_absoluto(r_matrix_sh, g_matrix_sh, b_matrix_sh)
+  r_matrix_sv_abs, g_matrix_sv_abs, b_matrix_sv_abs = ut.valor_absoluto(r_matrix_sv, g_matrix_sv, b_matrix_sv)
 
 
 
