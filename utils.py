@@ -53,20 +53,6 @@ def craete_extended_matrix_rgb_pivot(r_matrix, g_matrix, b_matrix, inc_row, inc_
 	
 	return r_matrix_ext, g_matrix_ext, b_matrix_ext
 
-def valor_absoluto(r_matrix, g_matrix, b_matrix):
-	row = r_matrix.shape[0]
-	col = r_matrix.shape[1]
-
-	r_matrix_abs, g_matrix_abs, b_matrix_abs = create_rgb_matrixes(row, col)
-
-	for i in range(row):
-		for j in range(col):
-			r_matrix_abs[i, j] = abs(r_matrix[i, j])
-			g_matrix_abs[i, j] = abs(g_matrix[i, j])
-			b_matrix_abs[i, j] = abs(b_matrix[i, j])
-	
-	return r_matrix_abs, g_matrix_abs, b_matrix_abs
-
 def expansao_de_histograma(r_matrix, g_matrix, b_matrix):
 
 	l = 255
@@ -85,9 +71,9 @@ def expansao_de_histograma(r_matrix, g_matrix, b_matrix):
 
 	for i in range(row):
 		for j in range(col):
-			r_matrix_exp_his[i, j] = ((r_matrix[i, j] - r_min) * l ) // (r_max - r_min)
-			g_matrix_exp_his[i, j] = ((g_matrix[i, j] - g_min) * l ) // (g_max - g_min)
-			b_matrix_exp_his[i, j] = ((b_matrix[i, j] - b_min) * l ) // (b_max - b_min)
+			r_matrix_exp_his[i, j] = (((r_matrix[i, j] - r_min) * l ) // (r_max - r_min))
+			g_matrix_exp_his[i, j] = (((g_matrix[i, j] - g_min) * l ) // (g_max - g_min))
+			b_matrix_exp_his[i, j] = (((b_matrix[i, j] - b_min) * l ) // (b_max - b_min))
 
 	return r_matrix_exp_his,g_matrix_exp_his, b_matrix_exp_his
 

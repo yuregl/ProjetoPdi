@@ -76,7 +76,7 @@ def negative_in_y(y_matrix, i_matrix, q_matrix, func):
   
   convert_to_rgb(y_matrix_negative, i_matrix, q_matrix, func)
 
-def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask):
+def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask, offset):
   
   # essa função consiste na implementação da correlação 
   # não normalizada entre uma mascara (masc_matriz) MxN e
@@ -101,6 +101,7 @@ def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_ma
   #print("row_picture:", row_picture, " col_picture: ", col_picture, " row_mask: ", row_mask, " col_mask: ", col_mask)
 
   mask_matrix_1d = np.array(mask_matrix).flatten()
+  
 
   for i in range(row_picture):
     for j in range(col_picture):
@@ -111,19 +112,34 @@ def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_ma
       g_aux_1d = np.array(g_matrix_ext[i:limit_row_mask, j:limit_col_mask]).flatten()
       b_aux_1d = np.array(b_matrix_ext[i:limit_row_mask, j:limit_col_mask]).flatten()
 
-      r_correlacao_aux = 0
-      g_correlacao_aux = 0
-      b_correlacao_aux = 0
+      r_correlacao_aux = offset
+      g_correlacao_aux = offset
+      b_correlacao_aux = offset
       
       for k in range(counter):
         r_correlacao_aux = r_correlacao_aux + (r_aux_1d[k] * mask_matrix_1d[k])
         g_correlacao_aux = g_correlacao_aux + (g_aux_1d[k] * mask_matrix_1d[k])
         b_correlacao_aux = b_correlacao_aux + (b_aux_1d[k] * mask_matrix_1d[k])
-        #print("r_correlacao: ",r_aux_1d[k] * masc_matriz_1d[k])
+        
+      
+      if(r_correlacao_aux < 0):
+        r_correlacao_aux = 0
+      if(r_correlacao_aux > 255):
+        r_correlacao_aux = 255
+      
+      if(g_correlacao_aux < 0):
+        g_correlacao_aux = 0
+      if(g_correlacao_aux > 255):
+        g_correlacao_aux = 255
+      
+      if(b_correlacao_aux < 0):
+        b_correlacao_aux = 0
+      if(b_correlacao_aux > 255):
+        b_correlacao_aux = 255
 
-      r_matrix_correlacao[i][j] = int(r_correlacao_aux)
-      g_matrix_correlacao[i][j] = int(g_correlacao_aux)
-      b_matrix_correlacao[i][j] = int(b_correlacao_aux) 
+      r_matrix_correlacao[i, j] = int(r_correlacao_aux)   
+      g_matrix_correlacao[i, j] = int(g_correlacao_aux)
+      b_matrix_correlacao[i, j] = int(b_correlacao_aux) 
 
   #print("r_matrix_correlacao: ")
   #print(r_matrix_correlacao)

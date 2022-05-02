@@ -34,9 +34,11 @@ if __name__ == "__main__":
 
       #values = ut.read_file(file_txt)
       #print(values)
-
-      #filters.media(file, mask_media, pivot_row, pivot_col, row, col)
-      filters.sobel(file, mask_sobel_horizontal, mask_sobel_vertical, pivot_row, pivot_col, row, col)
+     #print("mask_sobel_horizontal: ", mask_sobel_horizontal)
+      #print("mask_sobel_vertical: ", mask_sobel_vertical)
+      
+      filters.media(file, mask_media, pivot_row, pivot_col, row, col, offset)
+      filters.sobel(file, mask_sobel_horizontal, mask_sobel_vertical, pivot_row, pivot_col, row, col, offset)
 
     if(selectInput == '4'):
       row = int(input("Tamanaho das linhas: "))
