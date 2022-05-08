@@ -75,3 +75,74 @@ def negative_in_y(y_matrix, i_matrix, q_matrix, func):
       y_matrix_negative[i, j] = 255 - y_matrix[i, j]
   
   convert_to_rgb(y_matrix_negative, i_matrix, q_matrix, func)
+
+def correlacao(path_picture, mask_matrix, row_pivot, col_pivot, row_mask, col_mask, offset):
+  
+  # essa função consiste na implementação da correlação 
+  # não normalizada entre uma mascara (masc_matriz) MxN e
+  # os três canais de cor uma imagem.
+
+  picture = cv.imread(path_picture, 3)
+  row_picture, col_picture, ch = picture.shape
+
+  b_matrix, g_matrix, r_matrix = cv.split(picture)
+
+  inc_row = row_mask - 1 
+  inc_col = col_mask - 1
+
+  counter = (row_mask * col_mask)
+
+  #print("counter: ", counter)
+
+  r_matrix_ext, g_matrix_ext, b_matrix_ext = ut.craete_extended_matrix_rgb_pivot(r_matrix, g_matrix, b_matrix, inc_row, inc_col, row_pivot, col_pivot)
+  r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao = ut.create_rgb_matrixes(row_picture, col_picture)
+  
+  #Dimensões da imagem e da máscara.
+  #print("row_picture:", row_picture, " col_picture: ", col_picture, " row_mask: ", row_mask, " col_mask: ", col_mask)
+
+  mask_matrix_1d = np.array(mask_matrix).flatten()
+  
+
+  for i in range(row_picture):
+    for j in range(col_picture):
+      limit_row_mask = i + row_mask
+      limit_col_mask = j + col_mask
+
+      r_aux_1d = np.array(r_matrix_ext[i:limit_row_mask, j:limit_col_mask]).flatten()
+      g_aux_1d = np.array(g_matrix_ext[i:limit_row_mask, j:limit_col_mask]).flatten()
+      b_aux_1d = np.array(b_matrix_ext[i:limit_row_mask, j:limit_col_mask]).flatten()
+
+      r_correlacao_aux = offset
+      g_correlacao_aux = offset
+      b_correlacao_aux = offset
+      
+      for k in range(counter):
+        r_correlacao_aux = r_correlacao_aux + (r_aux_1d[k] * mask_matrix_1d[k])
+        g_correlacao_aux = g_correlacao_aux + (g_aux_1d[k] * mask_matrix_1d[k])
+        b_correlacao_aux = b_correlacao_aux + (b_aux_1d[k] * mask_matrix_1d[k])
+        
+      
+      if(r_correlacao_aux < 0):
+        r_correlacao_aux = 0
+      if(r_correlacao_aux > 255):
+        r_correlacao_aux = 255
+      
+      if(g_correlacao_aux < 0):
+        g_correlacao_aux = 0
+      if(g_correlacao_aux > 255):
+        g_correlacao_aux = 255
+      
+      if(b_correlacao_aux < 0):
+        b_correlacao_aux = 0
+      if(b_correlacao_aux > 255):
+        b_correlacao_aux = 255
+
+      r_matrix_correlacao[i, j] = int(r_correlacao_aux)   
+      g_matrix_correlacao[i, j] = int(g_correlacao_aux)
+      b_matrix_correlacao[i, j] = int(b_correlacao_aux) 
+
+  #print("r_matrix_correlacao: ")
+  #print(r_matrix_correlacao)
+
+  
+  return r_matrix_correlacao, g_matrix_correlacao, b_matrix_correlacao
