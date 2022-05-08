@@ -1,6 +1,6 @@
 import conversion
 import filters
-import avancedFunctions as af
+import advancedFunctions as af
 import utils as ut
 
 if __name__ == "__main__":
@@ -29,14 +29,8 @@ if __name__ == "__main__":
       conversion.negative_in_y(y_matrix, i_matrix, q_matrix,'NEGATIVO_IN_Y')
 
     if(selectInput == '3'):
-      
-      offset, row, col, mask_sobel_horizontal, mask_sobel_vertical, mask_media, pivot_row, pivot_col = ut.read_file(file_txt)
+      offset, row, col, mask_sobel_horizontal, mask_sobel_vertical, mask_media, pivot_row, pivot_col = ut.read_file(file_txt)  
 
-      #values = ut.read_file(file_txt)
-      #print(values)
-     #print("mask_sobel_horizontal: ", mask_sobel_horizontal)
-      #print("mask_sobel_vertical: ", mask_sobel_vertical)
-      
       filters.media(file, mask_media, pivot_row, pivot_col, row, col, offset)
       filters.sobel(file, mask_sobel_horizontal, mask_sobel_vertical, pivot_row, pivot_col, row, col, offset)
 
@@ -53,7 +47,6 @@ if __name__ == "__main__":
     
     if(selectInput == '5'):
       path_fist_correlation = af.avanced_correlation(file, file_woman_eye, 'FIRSTCORRELATION')
-      print(path_fist_correlation)
       af.avanced_correlation(path_fist_correlation, file_woman_eye, 'SECONDCORRELATION')
 
     if(selectInput == '0'):
